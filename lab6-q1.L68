@@ -1,0 +1,41 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 11/11/2022 3:13:31 PM
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7      ORG    $1000
+00001000                             8  START:                  ; first instruction of program
+00001000                             9  
+00001000                            10  * Put program code here
+00001000  41F9 00002000             11          LEA     XSEQ,A0         *A0 points at XSEQ
+00001006  103C 0005                 12          MOVE.B  #5,D0           *D0 is the counter of the loop 
+0000100A  123C 0009                 13          MOVE.B  #9,D1           *D1 is the step required from A0
+0000100E  43F0 1000                 14          LEA     (A0,D1),A1      *A1 points at the 
+00001012  1411                      15  LOOP    MOVE.B  (A1),D2         *D2 is temporary storage for (A1)
+00001014  1290                      16          MOVE.B  (A0),(A1)       *Store the element (A0) in (A1)
+00001016  10C2                      17          MOVE.B  D2,(A0)+        *Store the temporary value D2 in (A1) then increment A0
+00001018  5389                      18          SUB.L   #1,A1           *decrement A1
+0000101A  5300                      19          SUB.B   #1,D0           *decrement the counter D0
+0000101C  66F4                      20          BNE     LOOP            *Check for next iteration
+0000101E  FFFF FFFF                 21      SIMHALT             ; halt simulator
+00001022                            22  
+00001022                            23  * Put variables and constants here
+00002000                            24      ORG     $2000
+00002000= 01 03 04 06 0A 0C ...     25  XSEQ    DC.B    1, 3, 4, 6, 10, 12, 30, 31, 32, 33
+0000200A                            26      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+LOOP                1012
+START               1000
+XSEQ                2000
